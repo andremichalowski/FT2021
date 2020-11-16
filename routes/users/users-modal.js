@@ -42,6 +42,7 @@ function findOperatorsById(id) {
     return db("operators").where({ id }).first();
 }
 
+
 // DINERS
 
 function findDiners() {
