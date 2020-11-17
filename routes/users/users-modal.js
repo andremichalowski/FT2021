@@ -17,7 +17,7 @@ module.exports = {
 // OPERATORS
 
 function findOperators() {
-  return db("operators").select("id", "username").orderBy("id");
+  return db("operators").select("id", "username", "role").orderBy("id");
 }
 
 async function addOperators(operator) {
@@ -34,9 +34,22 @@ function findOperatorsBy(filter) {
     return db("operators as o")
         // .join("roles as r", "o.role", "r.id") //?
         .where(filter)
-        .select("o.id", "o.username", "o.password", /*"r.name as role"*/)
-        .orderBy("o.id");
+        .select("o.id", "o.username", "o.password", "o.role as role" /*"r.name as role"*/)
+        // .orderBy("o.id");
+        .first();
 }
+// function findOperatorsBy(filter) {
+//     return db("operators as o")
+//         // .join("roles as r", "o.role", "r.id") //?
+//         .where(filter)
+//         .select("o.id", "o.username", "o.password", "o.role as role" /*"r.name as role"*/)
+//         .orderBy("o.id");
+// }
+
+// function conditionalOperators(filter) {
+//   return db('operators as o')
+//     .where("username" = filter =)
+// }
 
 function findOperatorsById(id) {
     return db("operators").where({ id }).first();
@@ -46,7 +59,7 @@ function findOperatorsById(id) {
 // DINERS
 
 function findDiners() {
-  return db("diners").select("id", "username").orderBy("id");
+  return db("diners").select("id", "username", "role").orderBy("id");
 }
 
 async function addDiners(diner) {
@@ -63,7 +76,7 @@ function findDinersBy(filter) {
     return db("diners as d")
         // .join("roles as r", "d.role", "r.id") //?
         .where(filter)
-        .select("d.id", "d.username", "d.password")
+        .select("d.id", "d.username", "d.password", "d.role as role")
         .orderBy("d.id");
 }
 
