@@ -98,9 +98,9 @@ router.post("/login", (req, res) => {
     if (isValid(req.body)) {
       if (Users.findOperatorsBy({ username })) { // && operator.role === 'diner'
           
-        Users.findOperatorsBy({ username }).then((data) => {
-            //   console.log('login post operator:', data.role)
-            if (data.role === 'operator') {
+        Users.findOperatorsBy({ username })
+              .then(([operator]) => {
+                //   console.log('post /login for operator', typeof(operator), operator);
                   if (operator && bcryptjs.compareSync(password, operator.password)) {
                       const token = getJwt(operator);
   
@@ -108,25 +108,10 @@ router.post("/login", (req, res) => {
                   } else {
                       res.status(401).json({ message: "Invalid credentials for operator" });
                   }
-            } else {
-                console.log('does not exist')
-            }
-        });
-            //   .then(([operator]) => {
-            //     //   console.log('post /login for operator', typeof(operator), operator);
-            //     //   debugger;
-            //       // compare the password the hash stored in the database
-            //       if (operator && bcryptjs.compareSync(password, operator.password)) {
-            //           const token = getJwt(operator);
-  
-            //           res.status(200).json({ message: "Welcome to our API", token });
-            //       } else {
-            //           res.status(401).json({ message: "Invalid credentials for operator" });
-            //       }
-            //   })
-            //   .catch(error => {
-            //       res.status(500).json({ message: error.message });
-            //   });
+              })
+              .catch(error => {
+                  res.status(500).json({ message: error.message });
+              });
       } else if (Users.findDinersBy({ username })) {
           Users.findDinersBy({ username })
               .then(([diner]) => {
@@ -168,3 +153,19 @@ function getJwt(user) {
 
 
 module.exports = router;
+
+
+// .then((data) => {
+    //     //   console.log('login post operator:', data.role)
+    //     if (data.role === 'operator') {
+    //           if (operator && bcryptjs.compareSync(password, operator.password)) {
+    //               const token = getJwt(operator);
+
+    //               res.status(200).json({ message: "Welcome to our API", token });
+    //           } else {
+    //               res.status(401).json({ message: "Invalid credentials for operator" });
+    //           }
+    //     } else {
+    //         console.log('does not exist')
+    //     }
+    // });
