@@ -1,8 +1,8 @@
-const { addOperators } = require("../../routes/users/users-modal");
+// const { addOperators } = require("../../routes/users/users-modal");
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('operators').truncate()
+  return knex('operators').del()
     .then(function () {
       // Inserts seed entries
       return knex('operators').insert([
