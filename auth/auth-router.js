@@ -10,7 +10,7 @@ const { isValid } = require("../routes/users/users-service.js");
 router.post("/register", (req, res) => {
     const credentials = req.body;
 
-    if (isValid(credentials)) {
+    if (credentials/*isValid(credentials)*/) {
         const rounds = process.env.BCRYPT_ROUNDS || 8;
 
         // hash the password
