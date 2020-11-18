@@ -25,7 +25,7 @@ router.post("/register", (req, res) => {
                     res.status(201).json({ data: operator });
                 })
                 .catch(error => {
-                    res.status(500).json({ message: error.message });
+                    res.status(500).json({ message: error.message, stack: error.stack });
                 });
         } else if (credentials.role === 'diner') {
             Users.addDiners(credentials)
@@ -33,7 +33,7 @@ router.post("/register", (req, res) => {
                 res.status(201).json({ data: diner });
             })
             .catch(error => {
-                res.status(500).json({ message: error.message });
+                res.status(500).json({ message: error.message, stack: error.stack });
             });
         };
     } else {
@@ -127,7 +127,7 @@ router.post("/login", (req, res) => {
                   }
               })
               .catch(error => {
-                  res.status(500).json({ message: error.message });
+                  res.status(500).json({ message: error.message, stack: error.stack });
               });
       }
     } else {
