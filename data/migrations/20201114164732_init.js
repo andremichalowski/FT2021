@@ -3,9 +3,9 @@ exports.up = function(knex) {
     knex.schema
         .createTable("operators", tbl => {
           tbl.increments();
-          tbl.string('username', 30).notNullable().unique();
-          tbl.string('password', 15).notNullable();
-          tbl.string('email', 40).notNullable().unique();
+          tbl.string('username').notNullable().unique();
+          tbl.string('password').notNullable();
+          tbl.string('email').notNullable().unique();
           tbl.string('role').notNullable(); //can/should this be a boolean
           tbl.integer('location').notNullable();
         })
