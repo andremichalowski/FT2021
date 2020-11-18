@@ -7,7 +7,7 @@ const secret = require("../api/secret.js");
 const Users = require("../routes/users/users-modal.js");
 const { isValid } = require("../routes/users/users-service.js");
 
-router.post("/register", isValid, (req, res) => {
+router.post("/register", (req, res) => {
     const credentials = req.body;
 
     if (credentials/*isValid(credentials)*/) {
