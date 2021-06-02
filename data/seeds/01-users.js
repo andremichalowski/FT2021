@@ -1,32 +1,66 @@
-// const { addOperators } = require("../../routes/users/users-modal");
+
+const bcrypt = require('bcryptjs');
+//this is ridiculous and not secure, don't do this
+//only to see if it works
+
+// const hash = bcrypt.hashSync(process.env.USER, 10)
+// bcrypt.hashSync("bob",12)
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('operators').del()
+  return knex('users').truncate()
     .then(function () {
       // Inserts seed entries
-      return knex('operators').insert([
+      return knex('users').insert([
         {
-          username: 'testName',
-          password: 'testPassword',
-          email: 'email@gmail.com',
-          role: 'operator',
-          location: 1
+          username:"bob",
+          password:bcrypt.hashSync("bob",12),
+          email:"bob@bobsburgers.com",
+          isOperator:1,
+          location:1,
         },
         {
-          username: 'testName2',
-          password: 'testPassword2',
-          email: 'email2@gmail.com',
-          role: 'operator',
-          location: 2
+          username:"linda",
+          password:bcrypt.hashSync("linda",12),
+          email:"linda@bobsburgers.com",
+          isOperator:1,
+          location:2,
         },
         {
-          username: 'testName3',
-          password: 'testPassword3',
-          email: 'email3@gmail.com',
-          role: 'operator',
-          location: 3
-        }
+          username:"tina",
+          password:bcrypt.hashSync("tina",12),
+          email:"tina@bobsburgers.com",
+          isOperator:0,
+          location:1,
+        },
+        {
+          username:"louise",
+          password:bcrypt.hashSync("louise",12),
+          email:"louise@bobsburgers.com",
+          isOperator:0,
+          location:2,
+        },
+        {
+          username:"gene",
+          password:bcrypt.hashSync("gene",12),
+          email:"gene@bobsburgers.com",
+          isOperator:0,
+          location:1,
+        },
+        {
+          username:"jimmy",
+          password:bcrypt.hashSync("jimmy",12),
+          email:"jimmy@pestopizzeria.com",
+          isOperator:1,
+          location:2,
+        },
+        {
+          username:"tommy",
+          password:bcrypt.hashSync("tommy",12),
+          email:"tommy@email.com",
+          isOperator:1,
+          location:3,
+        },
       ]);
     });
 };
